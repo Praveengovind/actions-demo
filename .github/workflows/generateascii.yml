@@ -2,34 +2,36 @@ name: my second workflow - Generate ASCII
 on: push
 
 jobs: 
-    ascii_job: 
+    build_job: 
         runs-on: ubuntu-latest
         steps: 
-          - name: Checkout repo
-            uses: actions/checkout@v4
+          - name: Install Cowsay Package
+            run: sudo apt-get install cowsay -y
 
-          - name: list repo files
-            run: ls -ltra
+          - name: Execute Cowsay CMD
+            run: cowsay -f dragon "Run for Cover, Darcarys..." >> dragon.txt 
           
-          - name: Executing custom shell script
-            run: |
-                 chmod +x script.sh
-                 ./script.sh          
+          - name: Sleep for 30 seconds
+            run: sleep 30
 
-          # - name: Install Cowsay program
-          #   run: sudo apt-get install cowsay -y          
+    test_job:
+        runs-on: ubuntu-latest
+        steps:
+          - name: sleep for 15 seconds
+            run: sleep 15
 
-          # - name: Generate ASCII Content
-          #   run: cowsay -f dragon "Run for Cover, Darcarys..." >> dragon.txt   
+          - name: Test for file exists
+            run: grep -i "Darcarys" dragon.txt
 
-          # - name: Test for file
-          #   run: grep -i "Darcarys" dragon.txt
+    deploy_job:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Reading file
+            run: cat dragon.txt
 
-          # - name: Read file
-          #   run: cat dragon.txt
+          - name: Deployment
+            run: echo Deploying....
 
-          # - name: list repo files
-          #   run: ls -ltra
 
 
 
