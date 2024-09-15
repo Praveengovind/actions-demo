@@ -12,8 +12,10 @@ jobs:
             run: ls -ltra
           
           - name: Executing custom shell script
-            run: ./script.sh          
-              
+            run: |
+                 chmod +x script.sh
+                 ./script.sh          
+
           # - name: Install Cowsay program
           #   run: sudo apt-get install cowsay -y          
 
